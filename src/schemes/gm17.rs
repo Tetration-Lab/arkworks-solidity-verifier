@@ -2,7 +2,9 @@ use ark_ec::PairingEngine;
 use ark_gm17::{Proof, VerifyingKey, GM17};
 use regex::Regex;
 
-use crate::{constants::TEMPLATE_PREFIX_TEXT, PairingLibrary, SolidityVerifier};
+use crate::{
+    constants::TEMPLATE_PREFIX_TEXT, utils::format_modulus, PairingLibrary, SolidityVerifier,
+};
 
 impl<E: PairingEngine + PairingLibrary> SolidityVerifier<E> for GM17<E> {
     type Proof = Proof<E>;
@@ -96,6 +98,11 @@ impl<E: PairingEngine + PairingLibrary> SolidityVerifier<E> for GM17<E> {
             .replace(template_text.as_str(), query_repeat_text.as_str())
             .into_owned();
 
+        let scalar_field = Regex::new(r"<%scalar_field%>").unwrap();
+        template_text = scalar_field
+            .replace(&template_text, format_modulus::<E::Fr>())
+            .to_string();
+
         let re = Regex::new(r"(?P<v>0[xX][0-9a-fA-F]{64})").unwrap();
         template_text = re.replace_all(&template_text, "uint256($v)").to_string();
 
@@ -134,7 +141,7 @@ contract Verifier {
         <%vk_query_pts%>
     }
     function verify(uint[] memory input, Proof memory proof) internal view returns (uint) {
-        uint256 snark_scalar_field = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
+        uint256 snark_scalar_field = <%scalar_field%>;
         VerifyingKey memory vk = verifyingKey();
         require(input.length + 1 == vk.query.length);
         // Compute the linear combination vk_x
