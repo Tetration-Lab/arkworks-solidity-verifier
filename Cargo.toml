@@ -24,3 +24,4 @@ ark-poly-commit = { version = "^0.3.0", default-features = false }
 
 digest = "0.9"
 regex = "1.7.1"
+hex = "0.4.3"
