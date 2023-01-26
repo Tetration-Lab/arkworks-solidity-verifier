@@ -7,7 +7,7 @@ pub(crate) mod utils;
 pub mod schemes;
 
 pub trait PairingLibrary: PairingEngine {
-    fn template() -> &'static str;
+    fn template(g2_addition: bool) -> String;
 
     fn g1_to_string(g1: &Self::G1Affine) -> String;
 
