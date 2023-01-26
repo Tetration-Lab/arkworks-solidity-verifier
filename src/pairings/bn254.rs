@@ -1,10 +1,25 @@
 use ark_bn254::Bn254;
+use ark_ff::PrimeField;
 
 use crate::PairingLibrary;
 
 impl PairingLibrary for Bn254 {
     fn template() -> &'static str {
         PAIRING_CONTRACT_TEMPLATE
+    }
+
+    fn g1_to_string(g1: &Self::G1Affine) -> String {
+        format!("0x{}, 0x{}", g1.x.into_repr(), g1.y.into_repr())
+    }
+
+    fn g2_to_string(g2: &Self::G2Affine) -> String {
+        format!(
+            "[0x{}, 0x{}], [0x{}, 0x{}]",
+            g2.x.c0.into_repr(),
+            g2.x.c1.into_repr(),
+            g2.y.c0.into_repr(),
+            g2.y.c1.into_repr()
+        )
     }
 }
 

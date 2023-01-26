@@ -1,10 +1,17 @@
+use ark_ec::PairingEngine;
+
+pub(crate) mod constants;
 pub(crate) mod pairings;
 pub(crate) mod utils;
 
 pub mod schemes;
 
-pub trait PairingLibrary {
+pub trait PairingLibrary: PairingEngine {
     fn template() -> &'static str;
+
+    fn g1_to_string(g1: &Self::G1Affine) -> String;
+
+    fn g2_to_string(g2: &Self::G2Affine) -> String;
 }
 
 pub trait SolidityVerifier<E: PairingLibrary> {
