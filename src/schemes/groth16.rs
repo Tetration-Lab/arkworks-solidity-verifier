@@ -41,7 +41,7 @@ impl<E: PairingEngine + PairingLibrary> SolidityVerifier<E> for Groth16<E> {
         template_text = vk_gamma_abc_len_regex
             .replace(
                 template_text.as_str(),
-                format!("{}", gamma_abc_count).as_str(),
+                format!("{gamma_abc_count}").as_str(),
             )
             .into_owned();
 

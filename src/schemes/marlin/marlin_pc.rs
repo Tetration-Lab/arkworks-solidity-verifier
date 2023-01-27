@@ -13,28 +13,28 @@ use crate::{
     PairingLibrary, SolidityVerifier,
 };
 
-impl<E: PairingEngine> Into<Proof<E>>
-    for ark_marlin::Proof<E::Fr, MarlinKZG10<E, DensePolynomial<E::Fr>>>
+impl<E: PairingEngine> From<ark_marlin::Proof<E::Fr, MarlinKZG10<E, DensePolynomial<E::Fr>>>>
+    for Proof<E>
 {
-    fn into(self) -> Proof<E> {
+    fn from(val: ark_marlin::Proof<E::Fr, MarlinKZG10<E, DensePolynomial<E::Fr>>>) -> Self {
         Proof {
-            comms_1: self.commitments[0].iter().map(|e| e.comm.0).collect(),
-            comms_2: self.commitments[1].iter().map(|e| e.comm.0).collect(),
-            degree_bound_comms_2_g1: self.commitments[1][1]
+            comms_1: val.commitments[0].iter().map(|e| e.comm.0).collect(),
+            comms_2: val.commitments[1].iter().map(|e| e.comm.0).collect(),
+            degree_bound_comms_2_g1: val.commitments[1][1]
                 .shifted_comm
                 .expect("No shifted commitment found")
                 .0,
-            comms_3: self.commitments[2].iter().map(|e| e.comm.0).collect(),
-            degree_bound_comms_3_g2: self.commitments[2][0]
+            comms_3: val.commitments[2].iter().map(|e| e.comm.0).collect(),
+            degree_bound_comms_3_g2: val.commitments[2][0]
                 .shifted_comm
                 .expect("No shifted commitment found")
                 .0,
-            evals: self.evaluations,
-            batch_lc_proof_1: self.pc_proof.proof[0].w,
-            batch_lc_proof_1_r: self.pc_proof.proof[0]
+            evals: val.evaluations,
+            batch_lc_proof_1: val.pc_proof.proof[0].w,
+            batch_lc_proof_1_r: val.pc_proof.proof[0]
                 .random_v
                 .expect("No random polynomial evaluation"),
-            batch_lc_proof_2: self.pc_proof.proof[1].w,
+            batch_lc_proof_2: val.pc_proof.proof[1].w,
         }
     }
 }

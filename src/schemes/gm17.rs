@@ -44,7 +44,7 @@ impl<E: PairingEngine + PairingLibrary> SolidityVerifier<E> for GM17<E> {
 
         let query_count: usize = vk.query.len();
         template_text = vk_query_len_regex
-            .replace(template_text.as_str(), format!("{}", query_count).as_str())
+            .replace(template_text.as_str(), format!("{query_count}").as_str())
             .into_owned();
 
         template_text = vk_input_len_regex

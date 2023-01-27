@@ -7,10 +7,9 @@ impl PairingLibrary for Bn254 {
     fn template(g2_addition: bool) -> String {
         match g2_addition {
             true => format!(
-                "{}\n{}\n{}\n}}",
-                G2_ADDITION_LIB, PAIRING_LIB_START, PAIRING_LIB_G2_ADDITION
+                "{G2_ADDITION_LIB}\n{PAIRING_LIB_START}\n{PAIRING_LIB_G2_ADDITION}\n}}"
             ),
-            false => format!("{}\n}}", PAIRING_LIB_START),
+            false => format!("{PAIRING_LIB_START}\n}}"),
         }
     }
 
