@@ -6,6 +6,9 @@ pub(crate) mod utils;
 
 pub mod schemes;
 
+#[cfg(test)]
+mod tests;
+
 /// Helper trait for generating library for elliptic curve group and pairing operation in Solidity.
 ///
 /// This can be extended to other curve other than BN254 once precompiles are available.
