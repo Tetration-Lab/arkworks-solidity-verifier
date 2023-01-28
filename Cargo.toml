@@ -2,6 +2,11 @@
 name = "arkworks-solidity-verifier"
 version = "0.1.0"
 edition = "2021"
+readme = "README.md"
+repository = "https://github.com/Tetration-Lab/arkworks-solidity-verifier"
+keywords = ["verifier", "solidity", "zk-snarks", "zero-knowledge", "crypto"]
+description = "Solidity SNARK verifier generator for Arkwork's proof systems."
+license = "LGPL-3.0-only"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
