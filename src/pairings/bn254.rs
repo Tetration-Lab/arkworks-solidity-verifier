@@ -6,9 +6,9 @@ use crate::PairingLibrary;
 impl PairingLibrary for Bn254 {
     fn template(g2_addition: bool) -> String {
         match g2_addition {
-            true => format!(
-                "{G2_ADDITION_LIB}\n{PAIRING_LIB_START}\n{PAIRING_LIB_G2_ADDITION}\n}}"
-            ),
+            true => {
+                format!("{G2_ADDITION_LIB}\n{PAIRING_LIB_START}\n{PAIRING_LIB_G2_ADDITION}\n}}")
+            }
             false => format!("{PAIRING_LIB_START}\n}}"),
         }
     }
@@ -170,7 +170,6 @@ library Pairing {
         p2[3] = d2;
         return pairing(p1, p2);
     }
-}
 "#;
 
 pub const PAIRING_LIB_G2_ADDITION: &str = r#"
