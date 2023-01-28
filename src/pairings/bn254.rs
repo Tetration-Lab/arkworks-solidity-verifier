@@ -29,7 +29,7 @@ impl PairingLibrary for Bn254 {
 }
 
 const PAIRING_LIB_START: &str = r#"
-// This file is MIT Licensed.
+// This section is MIT Licensed.
 //
 // Copyright 2017 Christian Reitwiessner
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -179,14 +179,15 @@ pub const PAIRING_LIB_G2_ADDITION: &str = r#"
     }
 "#;
 
-pub const G2_ADDITION_LIB: &str = r#"// SPDX-License-Identifier: LGPL-3.0-only
-// This file is LGPL3 Licensed
-pragma solidity ^0.8.0;
+pub const G2_ADDITION_LIB: &str = r#"
+// This section is LGPL3 Licensed
 /**
  * @title Elliptic curve operations on twist points for alt_bn128
  * @author Mustafa Al-Bassam (mus@musalbas.com)
  * @dev Homepage: https://github.com/musalbas/solidity-BN256G2
  */
+
+pragma solidity ^0.8.0;
 library BN256G2 {
     uint256 internal constant FIELD_MODULUS = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47;
     uint256 internal constant TWISTBX = 0x2b149d40ceb8aaae81be18991be06ac3b5b4c5e559dbefa33267e6dc24a138e5;
