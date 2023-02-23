@@ -1,12 +1,11 @@
-use ark_ec::PairingEngine;
+use ark_ec::pairing::Pairing;
+use ark_ff::PrimeField;
 use ark_groth16::{Groth16, Proof, VerifyingKey};
 use regex::Regex;
 
-use crate::{
-    constants::TEMPLATE_PREFIX_TEXT, utils::format_modulus, PairingLibrary, SolidityVerifier,
-};
+use crate::{constants::TEMPLATE_PREFIX_TEXT, PairingLibrary, SolidityVerifier};
 
-impl<E: PairingEngine + PairingLibrary> SolidityVerifier<E> for Groth16<E> {
+impl<E: Pairing + PairingLibrary> SolidityVerifier<E> for Groth16<E> {
     type Proof = Proof<E>;
 
     type VerifyingKey = VerifyingKey<E>;
@@ -96,11 +95,11 @@ impl<E: PairingEngine + PairingLibrary> SolidityVerifier<E> for Groth16<E> {
 
         let scalar_field = Regex::new(r"<%scalar_field%>").unwrap();
         template_text = scalar_field
-            .replace(&template_text, format_modulus::<E::Fr>())
+            .replace(
+                &template_text,
+                <E::ScalarField as PrimeField>::MODULUS.to_string(),
+            )
             .to_string();
-
-        let re = Regex::new(r"(?P<v>0[xX][0-9a-fA-F]{64})").unwrap();
-        template_text = re.replace_all(&template_text, "uint256($v)").to_string();
 
         format!(
             "{}\n{}\n{}",

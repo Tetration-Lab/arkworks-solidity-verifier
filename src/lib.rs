@@ -1,8 +1,7 @@
-use ark_ec::PairingEngine;
+use ark_ec::pairing::Pairing;
 
 pub(crate) mod constants;
 pub(crate) mod pairings;
-pub(crate) mod utils;
 
 pub mod schemes;
 
@@ -20,7 +19,7 @@ mod tests;
 /// // ...
 /// }
 /// ```
-pub trait PairingLibrary: PairingEngine {
+pub trait PairingLibrary: Pairing {
     fn template(g2_addition: bool) -> String;
 
     fn g1_to_string(g1: &Self::G1Affine) -> String;
